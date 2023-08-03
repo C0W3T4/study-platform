@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Alert, Image, Text, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import giveClassesIcon from '../../assets/icons/give-classes.png'
 import heartIcon from '../../assets/icons/heart.png'
@@ -25,7 +25,7 @@ function Landing() {
 
         setTotalConnections(total)
       })
-      .catch((error: AxiosError) => console.log(error))
+      .catch(() => Alert.alert('Alert', "Couldn't get total connections!"))
   }
 
   useEffect(() => {

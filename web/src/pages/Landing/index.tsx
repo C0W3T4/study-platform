@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import giveClassesIcon from '../../assets/icons/give-classes.svg'
@@ -21,12 +21,11 @@ function Landing() {
 
         setTotalConnections(total)
       })
+      .catch(() => alert("Couldn't get total connections!"))
   }
 
   useEffect(() => {
     getConnections()
-      .catch((error: AxiosError) => console.log(error))
-      .finally(undefined)
   }, [])
 
   return (

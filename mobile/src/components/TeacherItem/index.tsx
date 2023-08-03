@@ -22,7 +22,7 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
       .post('connections', {
         userId: teacher.id,
       })
-      .catch((error) => console.log(error))
+      .catch(() => Alert.alert('Alert', "Couldn't create connection!"))
   }
 
   const handleLinkToWhatsapp: () => Promise<void> = async () => {

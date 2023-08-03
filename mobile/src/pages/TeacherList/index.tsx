@@ -4,9 +4,10 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker'
 import { useFocusEffect } from '@react-navigation/native'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import React, { useCallback, useState } from 'react'
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -80,7 +81,7 @@ function TeacherList() {
         setTeachers(response.data)
         setIsFiltersVisible(false)
       })
-      .catch((error: AxiosError) => console.log(error))
+      .catch(() => Alert.alert('Alert', "Couldn't get classes!"))
   }
 
   const handleWeekDayOnChange = (text: string) =>
