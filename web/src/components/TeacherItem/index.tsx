@@ -8,10 +8,13 @@ interface TeacherItemProps {
 }
 
 const TeacherItem = ({ teacher }: TeacherItemProps) => {
-  const createNewConnection = async () => await api.post('/connections', {
-    user_id: teacher.id,
-  }).then(() => alert('Connection made!'))
-    .catch(() => alert("Could'nt made a connection!"))
+  const createNewConnection = async () =>
+    await api
+      .post('/connections', {
+        userId: teacher.id,
+      })
+      .then(() => alert('Connection made!'))
+      .catch(() => alert("Could'nt made a connection!"))
 
   return (
     <article className="teacher-item">

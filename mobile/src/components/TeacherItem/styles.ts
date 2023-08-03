@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -7,38 +7,38 @@ const styles = StyleSheet.create({
     borderColor: '#e6e6f0',
     borderRadius: 8,
     marginBottom: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 
   profile: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 24
+    padding: 24,
   },
 
   avatar: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
 
   profileInfo: {
-    marginLeft: 16
+    marginLeft: 16,
   },
 
   name: {
     fontFamily: 'Archivo_700Bold',
     color: '#32264d',
     fontSize: 16,
-    marginTop: 4
+    marginTop: 4,
   },
 
   subject: {
     fontFamily: 'Poppins_400Regular',
     color: '#6a6180',
     fontSize: 12,
-    marginTop: 4
+    marginTop: 4,
   },
 
   bio: {
@@ -46,31 +46,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     fontSize: 14,
     lineHeight: 24,
-    color: '#6a6180'
+    color: '#6a6180',
   },
 
   footer: {
     backgroundColor: '#fafafc',
     padding: 24,
     alignItems: 'center',
-    marginTop: 24
+    marginTop: 24,
   },
 
   price: {
     fontFamily: 'Poppins_400Regular',
     color: '#6a6180',
-    fontSize: 14
+    fontSize: 14,
   },
 
   priceValue: {
     fontFamily: 'Archivo_700Bold',
     color: '#8257e5',
-    fontSize: 16
+    fontSize: 16,
   },
 
   buttonsContainer: {
     flexDirection: 'row',
-    marginTop: 16
+    marginTop: 16,
   },
 
   favoriteButton: {
@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8
+    marginRight: 8,
   },
 
   favorite: {
-    backgroundColor: '#e33d3d'
+    backgroundColor: '#e33d3d',
   },
 
   contactButton: {
@@ -95,15 +95,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8
+    marginRight: 8,
   },
 
   contactButtonText: {
     color: '#FFF',
     fontFamily: 'Archivo_700Bold',
     fontSize: 16,
-    marginLeft: 16
-  }
-});
+    marginLeft: 16,
+  },
+})
 
-export default styles;
+export default styles

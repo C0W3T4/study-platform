@@ -1,96 +1,113 @@
-import { Feather } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { useFocusEffect } from '@react-navigation/native';
-import { AxiosError, AxiosResponse } from 'axios';
-import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
-import PageHeader from '../../components/PageHeader';
-import TeacherItem from '../../components/TeacherItem';
-import api from '../../services/api';
-import { Teacher } from '../../types/teacher';
-import styles from './styles';
+import { Feather } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker'
+import { useFocusEffect } from '@react-navigation/native'
+import { AxiosError, AxiosResponse } from 'axios'
+import React, { useCallback, useState } from 'react'
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import PageHeader from '../../components/PageHeader'
+import TeacherItem from '../../components/TeacherItem'
+import api from '../../services/api'
+import { Teacher } from '../../types/teacher'
+import styles from './styles'
 
 function TeacherList() {
-  const [isFiltersVisible, setIsFiltersVisible] = useState<boolean>(false);
-  const [timePicker, setTimePicker] = useState<boolean>(false);
+  const [isFiltersVisible, setIsFiltersVisible] = useState<boolean>(false)
+  const [timePicker, setTimePicker] = useState<boolean>(false)
 
-  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([])
 
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([])
 
-  const [subject, setSubject] = useState<string>('');
-  const [week_day, setWeekDay] = useState<string>('');
-  const [date, setDate] = useState<Date>(new Date());
-  const [time, setTime] = useState<string>('');
+  const [subject, setSubject] = useState<string>('')
+  const [weekDay, setWeekDay] = useState<string>('')
+  const [date, setDate] = useState<Date>(new Date())
 
-  function loadFavorites() {
-    AsyncStorage.getItem('favorites').then(res => {
+  const formatDate = (date: Date) =>
+    new Intl.DateTimeFormat(undefined, {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date)
+
+  const [time, setTime] = useState<string>(formatDate(date))
+
+  function loadFavorites(): void {
+    AsyncStorage.getItem('favorites').then((res) => {
       if (res) {
-        const favoriteTeachers = JSON.parse(res);
+        const favoriteTeachers = JSON.parse(res)
 
         const favoriteTeachersIds = favoriteTeachers.map((teacher: Teacher) => {
-          return teacher.id;
-        });
+          return teacher.id
+        })
 
-        setFavorites(favoriteTeachersIds);
+        setFavorites(favoriteTeachersIds)
       }
-    });
+    })
   }
 
-  useFocusEffect(() => {
-    loadFavorites();
-  });
+  useFocusEffect(
+    useCallback(() => {
+      loadFavorites()
+    }, []),
+  )
 
   function handleToggleFiltersVisible(): void {
-    setIsFiltersVisible(!isFiltersVisible);
+    setIsFiltersVisible(!isFiltersVisible)
   }
 
   async function handleFiltersSubmit(): Promise<void> {
-    loadFavorites();
+    loadFavorites()
 
-    await api.get('/classes', {
-      params: {
-        subject,
-        week_day,
-        time
-      }
-    }).then((response: AxiosResponse<Teacher[], unknown>) => {
-      setTeachers(response.data);
-      setIsFiltersVisible(false);
-    }).catch((error: AxiosError) => console.log(error));
+    await api
+      .get('/classes', {
+        params: {
+          subject,
+          weekDay,
+          time,
+        },
+      })
+      .then((response: AxiosResponse<Teacher[], unknown>) => {
+        setTeachers(response.data)
+        setIsFiltersVisible(false)
+      })
+      .catch((error: AxiosError) => console.log(error))
   }
 
-  const handleWeekDayOnChange = (text: string) => setWeekDay(
-    text.replace(/[^0-9]/g, '')
-  );
+  const handleWeekDayOnChange = (text: string) =>
+    setWeekDay(text.replace(/[^0-9]/g, ''))
 
   const handleTimeOnChange = (event: DateTimePickerEvent, date?: Date) => {
-    const { type } = event;
+    const { type } = event
 
     if (type === 'set' && date) {
-      setDate(date);
+      setDate(date)
 
-      const formattedTime: string = new Intl.DateTimeFormat(
-        undefined,
-        { hour12: false, hour: '2-digit', minute: '2-digit' }
-      ).format(date);
-      setTime(formattedTime);
+      const formattedTime: string = formatDate(date)
+      setTime(formattedTime)
     }
 
-    setTimePicker(false);
+    setTimePicker(false)
   }
 
   return (
     <View style={styles.container}>
       <PageHeader
         title="Available teachers"
-        headerRight={(
+        headerRight={
           <BorderlessButton onPress={handleToggleFiltersVisible}>
             <Feather name="filter" size={20} color="#FFF" />
           </BorderlessButton>
-        )}
+        }
       >
         {isFiltersVisible && (
           <>
@@ -99,7 +116,7 @@ function TeacherList() {
               <TextInput
                 style={styles.input}
                 value={subject}
-                onChangeText={text => setSubject(text)}
+                onChangeText={(text) => setSubject(text)}
                 placeholder="What is the subject?"
                 placeholderTextColor="#c1bccc"
               />
@@ -107,10 +124,10 @@ function TeacherList() {
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Weekday</Text>
                   <TextInput
-                    inputMode='numeric'
+                    inputMode="numeric"
                     style={styles.input}
-                    value={week_day}
-                    onChangeText={text => handleWeekDayOnChange(text)}
+                    value={weekDay}
+                    onChangeText={(text) => handleWeekDayOnChange(text)}
                     placeholder="0=Sunday ... 6=Saturday"
                     placeholderTextColor="#c1bccc"
                   />
@@ -120,26 +137,29 @@ function TeacherList() {
                   <TouchableOpacity onPress={() => setTimePicker(true)}>
                     <TextInput
                       editable={false}
-                      inputMode='text'
+                      inputMode="text"
                       style={styles.input}
                       value={time}
-                      onChangeText={text => setTime(text)}
+                      onChangeText={(text) => setTime(text)}
                       placeholder="What time?"
                       placeholderTextColor="#c1bccc"
                     />
                   </TouchableOpacity>
                 </View>
               </View>
-              <RectButton onPress={handleFiltersSubmit} style={styles.submitButton}>
+              <RectButton
+                onPress={handleFiltersSubmit}
+                style={styles.submitButton}
+              >
                 <Text style={styles.submitButtonText}>Filter</Text>
               </RectButton>
             </View>
             {timePicker && (
               <DateTimePicker
-                onChange={(event, date) => handleTimeOnChange(event, date)}
+                onChange={handleTimeOnChange}
                 value={date}
-                mode='time'
-                display='clock'
+                mode="time"
+                display="clock"
                 is24Hour={true}
               />
             )}
@@ -150,12 +170,12 @@ function TeacherList() {
         style={styles.teacherList}
         contentContainerStyle={{
           paddingHorizontal: 16,
-          paddingBottom: 16
+          paddingBottom: 16,
         }}
       >
         {teachers && teachers.length === 0 && (
           <Text style={{ marginTop: 50, textAlign: 'center' }}>
-            There is no data to display! Fill or change filters.
+            There is no data to display! Fill all or change filters.
           </Text>
         )}
         {teachers.map((teacher: Teacher) => {
@@ -165,11 +185,11 @@ function TeacherList() {
               teacher={teacher}
               favorite={favorites.includes(teacher.id)}
             />
-          );
+          )
         })}
       </ScrollView>
     </View>
-  );
+  )
 }
 
-export default TeacherList;
+export default TeacherList

@@ -12,7 +12,7 @@ function TeacherList() {
   const [teachers, setTeachers] = useState<Teacher[]>([])
 
   const [subject, setSubject] = useState('')
-  const [week_day, setWeekDay] = useState('')
+  const [weekDay, setWeekDay] = useState('')
   const [time, setTime] = useState('')
 
   const searchTeachers = async (e: FormEvent<HTMLFormElement>) => {
@@ -22,7 +22,7 @@ function TeacherList() {
       .get('/classes', {
         params: {
           subject,
-          week_day,
+          weekDay,
           time,
         },
       })
@@ -69,9 +69,9 @@ function TeacherList() {
             ]}
           />
           <Select
-            name="week_day"
+            name="weekDay"
             label="Week day"
-            value={week_day}
+            value={weekDay}
             onChange={(e) => {
               setWeekDay(e.target.value)
             }}

@@ -1,3 +1,3 @@
 export type ConnectionsProps = {
-  total: number;
-};
+  total: number
+}

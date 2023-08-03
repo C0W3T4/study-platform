@@ -1,68 +1,67 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
-import { Alert, Image, Linking, Text, View } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-import heartOutlineIcon from '../../assets/icons/heart-outline.png';
-import unfavoriteIcon from '../../assets/icons/unfavorite.png';
-import whatsappIcon from '../../assets/icons/whatsapp.png';
-import api from '../../services/api';
-import { Teacher } from '../../types/teacher';
-import styles from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useState } from 'react'
+import { Alert, Image, Linking, Text, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
+import heartOutlineIcon from '../../assets/icons/heart-outline.png'
+import unfavoriteIcon from '../../assets/icons/unfavorite.png'
+import whatsappIcon from '../../assets/icons/whatsapp.png'
+import api from '../../services/api'
+import { Teacher } from '../../types/teacher'
+import styles from './styles'
 
 interface TeacherItemProps {
-  teacher: Teacher;
-  favorite: boolean;
+  teacher: Teacher
+  favorite: boolean
 }
 
 const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
-  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
+  const [isFavorite, setIsFavorite] = useState<boolean>(favorite)
 
   const handleCreateConnections: () => Promise<void> = async () => {
-    await api.post('connections', {
-      user_id: teacher.id
-    }).catch(error => console.log(error));
+    await api
+      .post('connections', {
+        userId: teacher.id,
+      })
+      .catch((error) => console.log(error))
   }
 
   const handleLinkToWhatsapp: () => Promise<void> = async () => {
-    const url = `whatsapp://send?phone=${teacher.whatsapp}`;
+    const url = `whatsapp://send?phone=${teacher.whatsapp}`
 
-    await Linking.canOpenURL(url).then(supported => {
+    await Linking.canOpenURL(url).then((supported) => {
       if (supported) {
-        handleCreateConnections();
+        handleCreateConnections()
 
-        Linking.openURL(url);
+        Linking.openURL(url)
       } else {
-        Alert.alert(
-          'Alert',
-          'WhatsApp is not installed',
-        )
+        Alert.alert('Alert', 'WhatsApp is not installed')
       }
-    });
+    })
   }
 
   const handleToggleFavorite: () => Promise<void> = async () => {
-    const favorites = await AsyncStorage.getItem('favorites');
+    const favorites = await AsyncStorage.getItem('favorites')
 
-    let favoritesArray = [];
+    let favoritesArray = []
 
     if (favorites) {
-      favoritesArray = JSON.parse(favorites);
+      favoritesArray = JSON.parse(favorites)
     }
 
     if (isFavorite) {
       const favoriteIndex = favoritesArray.findIndex((teacherItem: Teacher) => {
-        return teacherItem.id === teacher.id;
-      });
+        return teacherItem.id === teacher.id
+      })
 
-      favoritesArray.splice(favoriteIndex, 1);
+      favoritesArray.splice(favoriteIndex, 1)
 
-      setIsFavorite(false);
+      setIsFavorite(false)
     } else {
-      favoritesArray.push(teacher);
+      favoritesArray.push(teacher)
 
-      setIsFavorite(true);
+      setIsFavorite(true)
     }
-    await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
+    await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray))
   }
 
   return (
@@ -71,6 +70,7 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
         <Image
           style={styles.avatar}
           source={{ uri: teacher.avatar }}
+          alt="Avatar"
         />
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{teacher.name}</Text>
@@ -86,24 +86,25 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
         <View style={styles.buttonsContainer}>
           <RectButton
             onPress={handleToggleFavorite}
-            style={[
-              styles.favoriteButton,
-              isFavorite ? styles.favorite : {}
-            ]}
+            style={[styles.favoriteButton, isFavorite ? styles.favorite : {}]}
           >
-            {isFavorite
-              ? <Image source={unfavoriteIcon} />
-              : <Image source={heartOutlineIcon} />
-            }
+            {isFavorite ? (
+              <Image source={unfavoriteIcon} alt="Unfavorite" />
+            ) : (
+              <Image source={heartOutlineIcon} alt="Favorite" />
+            )}
           </RectButton>
-          <RectButton onPress={handleLinkToWhatsapp} style={styles.contactButton}>
-            <Image source={whatsappIcon} />
+          <RectButton
+            onPress={handleLinkToWhatsapp}
+            style={styles.contactButton}
+          >
+            <Image source={whatsappIcon} alt="Whatsapp" />
             <Text style={styles.contactButtonText}>Get in touch</Text>
           </RectButton>
         </View>
       </View>
     </View>
-  );
+  )
 }
 
-export default TeacherItem;
+export default TeacherItem

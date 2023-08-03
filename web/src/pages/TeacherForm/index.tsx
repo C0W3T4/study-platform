@@ -20,11 +20,11 @@ function TeacherForm() {
   const [cost, setCost] = useState('')
 
   const [scheduleItems, setScheduleItems] = useState([
-    { week_day: 0, from: '', to: '' },
+    { weekDay: 0, from: '', to: '' },
   ])
 
   function addNewScheduleItem() {
-    setScheduleItems([...scheduleItems, { week_day: 0, from: '', to: '' }])
+    setScheduleItems([...scheduleItems, { weekDay: 0, from: '', to: '' }])
   }
 
   function setScheduleItemValue(
@@ -147,13 +147,13 @@ function TeacherForm() {
             </legend>
             {scheduleItems.map((scheduleItem, index) => {
               return (
-                <div key={scheduleItem.week_day} className="schedule-item">
+                <div key={scheduleItem.weekDay} className="schedule-item">
                   <Select
-                    name="week_day"
+                    name="weekDay"
                     label="Week day"
-                    value={scheduleItem.week_day}
+                    value={scheduleItem.weekDay}
                     onChange={(e) =>
-                      setScheduleItemValue(index, 'week_day', e.target.value)
+                      setScheduleItemValue(index, 'weekDay', e.target.value)
                     }
                     options={[
                       { value: '0', label: 'Sunday' },
