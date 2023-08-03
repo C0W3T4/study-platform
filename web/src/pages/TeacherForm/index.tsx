@@ -6,24 +6,25 @@ import PageHeader from '../../components/PageHeader'
 import Select from '../../components/Select'
 import Textarea from '../../components/Textarea'
 import api from '../../services/api'
+import { ClassSchedule } from '../../types/class'
 import './styles.css'
 
 function TeacherForm() {
   const history = useHistory()
 
-  const [name, setName] = useState('')
-  const [avatar, setAvatar] = useState('')
-  const [whatsapp, setWhatsapp] = useState('')
-  const [bio, setBio] = useState('')
+  const [name, setName] = useState<string>('')
+  const [avatar, setAvatar] = useState<string>('')
+  const [whatsapp, setWhatsapp] = useState<string>('')
+  const [bio, setBio] = useState<string>('')
 
-  const [subject, setSubject] = useState('')
-  const [cost, setCost] = useState('')
+  const [subject, setSubject] = useState<string>('')
+  const [cost, setCost] = useState<string>('')
 
-  const [scheduleItems, setScheduleItems] = useState([
+  const [scheduleItems, setScheduleItems] = useState<ClassSchedule[]>([
     { weekDay: 0, from: '', to: '' },
   ])
 
-  function addNewScheduleItem() {
+  function addNewScheduleItem(): void {
     setScheduleItems([...scheduleItems, { weekDay: 0, from: '', to: '' }])
   }
 
@@ -31,7 +32,7 @@ function TeacherForm() {
     position: number,
     field: string,
     value: string,
-  ) {
+  ): void {
     const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
       if (index === position) {
         return { ...scheduleItem, [field]: value }
@@ -42,7 +43,7 @@ function TeacherForm() {
     return setScheduleItems(updatedScheduleItems)
   }
 
-  function handleCreateClass(e: FormEvent) {
+  function handleCreateClass(e: FormEvent): void {
     e.preventDefault()
 
     api

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
 import { ImageBackground, Text, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import giveClassesBgImage from '../../assets/images/give-classes-background.png'

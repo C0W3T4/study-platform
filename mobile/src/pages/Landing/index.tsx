@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert, Image, Text, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import giveClassesIcon from '../../assets/icons/give-classes.png'
@@ -15,7 +15,7 @@ import styles from './styles'
 function Landing() {
   const { navigate } = useNavigation<StackNavigation>()
 
-  const [totalConnections, setTotalConnections] = useState(0)
+  const [totalConnections, setTotalConnections] = useState<number>(0)
 
   async function getConnections(): Promise<void> {
     await api

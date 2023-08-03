@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Alert, Image, Linking, Text, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import heartOutlineIcon from '../../assets/icons/heart-outline.png'
@@ -42,26 +42,29 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
   const handleToggleFavorite: () => Promise<void> = async () => {
     const favorites = await AsyncStorage.getItem('favorites')
 
-    let favoritesArray = []
+    let favoriteTeachers: Teacher[] = []
 
     if (favorites) {
-      favoritesArray = JSON.parse(favorites)
+      favoriteTeachers = JSON.parse(favorites)
     }
 
     if (isFavorite) {
-      const favoriteIndex = favoritesArray.findIndex((teacherItem: Teacher) => {
-        return teacherItem.id === teacher.id
-      })
+      const favoriteIndex = favoriteTeachers.findIndex(
+        (teacherItem: Teacher) => {
+          return teacherItem.id === teacher.id
+        },
+      )
 
-      favoritesArray.splice(favoriteIndex, 1)
+      favoriteTeachers.splice(favoriteIndex, 1)
 
       setIsFavorite(false)
     } else {
-      favoritesArray.push(teacher)
+      favoriteTeachers.push(teacher)
 
       setIsFavorite(true)
     }
-    await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray))
+
+    await AsyncStorage.setItem('favorites', JSON.stringify(favoriteTeachers))
   }
 
   return (

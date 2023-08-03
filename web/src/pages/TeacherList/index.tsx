@@ -11,9 +11,9 @@ import './styles.css'
 function TeacherList() {
   const [teachers, setTeachers] = useState<Teacher[]>([])
 
-  const [subject, setSubject] = useState('')
-  const [weekDay, setWeekDay] = useState('')
-  const [time, setTime] = useState('')
+  const [subject, setSubject] = useState<string>('')
+  const [weekDay, setWeekDay] = useState<string>('')
+  const [time, setTime] = useState<string>('')
 
   const searchTeachers = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -45,7 +45,7 @@ function TeacherList() {
         <form
           id="search-teachers"
           onSubmit={(e) => {
-            searchTeachers(e).finally(undefined)
+            searchTeachers(e)
           }}
         >
           <Select
@@ -97,16 +97,15 @@ function TeacherList() {
           <button type="submit">Search</button>
         </form>
       </PageHeader>
-
       <main>
         {teachers && teachers.length === 0 && (
           <h3 className="no-data">
             There is no data to display! Fill or change filters.
           </h3>
         )}
-        {teachers.map((teacher: Teacher) => {
-          return <TeacherItem key={teacher.id} teacher={teacher} />
-        })}
+        {teachers.map((teacher) => (
+          <TeacherItem key={teacher.id} teacher={teacher} />
+        ))}
       </main>
     </div>
   )

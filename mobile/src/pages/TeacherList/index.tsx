@@ -5,7 +5,7 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker'
 import { useFocusEffect } from '@react-navigation/native'
 import { AxiosResponse } from 'axios'
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   Alert,
   ScrollView,
@@ -172,7 +172,7 @@ function TeacherList() {
             There is no data to display! Fill all or change filters.
           </Text>
         )}
-        {teachers.map((teacher: Teacher) => {
+        {teachers.map((teacher) => {
           return (
             <TeacherItem
               key={teacher.id}

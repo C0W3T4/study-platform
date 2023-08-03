@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Image, Text, View } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import backIcon from '../../assets/icons/back.png'

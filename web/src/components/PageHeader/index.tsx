@@ -19,10 +19,8 @@ const PageHeader = ({ title, description, children }: PageHeaderProps) => {
         </Link>
         <img src={logoImg} alt="Proffy" />
       </div>
-
       <div className="header-content">
         <strong>{title}</strong>
-
         {description && <p>{description}</p>}
         {children}
       </div>
