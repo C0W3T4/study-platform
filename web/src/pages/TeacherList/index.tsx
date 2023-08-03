@@ -30,7 +30,7 @@ function TeacherList() {
         const teachers = response.data
         setTeachers(teachers)
       })
-      .catch((error: AxiosError<unknown, unknown>) => {
+      .catch((error: AxiosError<Teacher[], unknown>) => {
         if (error.response?.status === 400) {
           alert('Fill all filters!')
         } else {
