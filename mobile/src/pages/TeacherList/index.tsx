@@ -19,6 +19,7 @@ import PageHeader from '../../components/PageHeader'
 import TeacherItem from '../../components/TeacherItem'
 import api from '../../services/api'
 import { Teacher } from '../../types/teacher'
+import { formatDate } from '../../utils/format'
 import styles from './styles'
 
 function TeacherList() {
@@ -32,14 +33,6 @@ function TeacherList() {
   const [subject, setSubject] = useState<string>('')
   const [weekDay, setWeekDay] = useState<string>('')
   const [date, setDate] = useState<Date>(new Date())
-
-  const formatDate = (date: Date) =>
-    new Intl.DateTimeFormat(undefined, {
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date)
-
   const [time, setTime] = useState<string>(formatDate(date))
 
   function loadFavorites(): void {
