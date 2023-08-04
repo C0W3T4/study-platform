@@ -74,7 +74,7 @@ function TeacherList() {
         setTeachers(response.data)
         setIsFiltersVisible(false)
       })
-      .catch(() => Alert.alert('Alert', "Couldn't get classes!"))
+      .catch(() => Alert.alert("Couldn't get classes!"))
   }
 
   const handleWeekDayOnChange = (text: string) =>

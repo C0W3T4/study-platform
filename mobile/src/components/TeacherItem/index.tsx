@@ -22,7 +22,7 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
       .post('connections', {
         userId: teacher.id,
       })
-      .catch(() => Alert.alert('Alert', "Couldn't create connection!"))
+      .catch(() => Alert.alert("Couldn't create connection!"))
   }
 
   const handleLinkToWhatsapp: () => Promise<void> = async () => {
@@ -34,7 +34,7 @@ const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
 
         Linking.openURL(url)
       } else {
-        Alert.alert('Alert', 'WhatsApp is not installed')
+        Alert.alert('WhatsApp is not installed')
       }
     })
   }

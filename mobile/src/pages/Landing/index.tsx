@@ -25,7 +25,7 @@ function Landing() {
 
         setTotalConnections(total)
       })
-      .catch(() => Alert.alert('Alert', "Couldn't get total connections!"))
+      .catch(() => Alert.alert("Couldn't get total connections!"))
   }
 
   useEffect(() => {
