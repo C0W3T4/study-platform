@@ -12,25 +12,27 @@ This project was developed using the following technologies:
 
 - [React](https://react.dev/)
 - [Vite](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [Axios](https://axios-http.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [ESLint](https://eslint.org/)
 
 ### Mobile app
 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [Axios](https://axios-http.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [ESLint](https://eslint.org/)
 
 ### Server app
 
 - [Node](https://nodejs.org/en)
-- [TypeScript](https://www.typescriptlang.org/)
 - [Express](https://expressjs.com/)
 - [Knex](https://knexjs.org/)
 - [SQLite](https://www.sqlite.org/index.html)
+- [TypeScript](https://www.typescriptlang.org/)
 - [ESLint](https://eslint.org/)
 
 ## 🚀 How to run
